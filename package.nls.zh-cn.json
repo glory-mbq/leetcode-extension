@@ -1,4 +1,6 @@
 {
+    "main.contributes.configuration.properties.leetcode-problem-rating.editor.codePosition.description": "分栏模式下代码编辑器的位置。题目描述、题解和提交结果显示在另一栏。",
+    "main.contributes.configuration.properties.leetcode-problem-rating.problemLinks.openIn.description": "在 VS Code 集成浏览器或外部浏览器打开 Discussion、Solution 链接。集成浏览器需要较新的桌面版 VS Code。",
     "main.description": "LeetCode 官方插件增强, 代码开源, 增加 LeetCode 题目难度分, 给个star吧, 球球了~",
     "main.name": "vscode-leetcode-problem-rating",
     "main.contributes.commands.lcpr.deleteCache.title": "删除缓存",
@@ -87,7 +89,7 @@
         "提交所有测试",
         "本地调试"
     ],
-    "main.contributes.configuration.properties.leetcode-problem-rating.enableSideMode.description": "解决问题时确定是否将所有webview页面分组到第二个编辑器列中。",
+    "main.contributes.configuration.properties.leetcode-problem-rating.enableSideMode.description": "解决问题时将题目描述与代码编辑器分栏显示。通过 editor.codePosition 选择代码所在的一侧。",
     "main.contributes.configuration.properties.leetcode-problem-rating.nodePath.description": "Node.js 可执行文件路径。 例如:C:\\Program Files\\nodejs\\node.exe",
     "main.contributes.configuration.properties.leetcode-problem-rating.colorizeProblems.description": "在资源管理器树中添加难度徽章并为问题文件着色。",
     "main.contributes.configuration.properties.leetcode-problem-rating.problems.sortStrategy.description": "问题列表的排序策略。",

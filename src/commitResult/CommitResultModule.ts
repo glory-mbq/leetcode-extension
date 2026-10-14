@@ -15,6 +15,7 @@ import { IWebViewOption } from "../model/ConstDefind";
 import { promptHintMessage } from "../utils/OutputUtils";
 import { isAnswerDiffColor } from "../utils/ConfigUtils";
 import { BABA, BABAMediator, BABAProxy, BabaStr, BaseCC } from "../BABA";
+import { getProblemColumns } from "../utils/EditorLayout";
 
 class SubmissionService extends BaseWebViewService {
   protected readonly viewType: string = "leetcode.submission";
@@ -51,7 +52,7 @@ class SubmissionService extends BaseWebViewService {
   protected getWebviewOption(): IWebViewOption {
     return {
       title: "Submission",
-      viewColumn: ViewColumn.Two,
+      viewColumn: BABA.getProxy(BabaStr.PreviewProxy).isSideMode() ? getProblemColumns(true).content : ViewColumn.Two,
     };
   }
 

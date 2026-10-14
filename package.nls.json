@@ -1,4 +1,6 @@
 {
+    "main.contributes.configuration.properties.leetcode-problem-rating.editor.codePosition.description": "Position of the code editor in side mode. Problem descriptions, solutions, and submission results use the opposite group.",
+    "main.contributes.configuration.properties.leetcode-problem-rating.problemLinks.openIn.description": "Open the Discussion and Solution links in the VS Code integrated browser or in an external browser. The integrated browser requires a recent desktop VS Code version.",
     "main.description": "在 VSCode 上做LeetCode题的插件, GitHub 开源,给个 star 吧~",
     "main.name": "vscode-leetcode-problem-rating",
     "main.contributes.commands.lcpr.deleteCache.title": "Delete Cache",
@@ -87,7 +89,7 @@
         "Test all default case",
         "Debug case"
     ],
-    "main.contributes.configuration.properties.leetcode-problem-rating.enableSideMode.description": "Determine whether to group all webview pages into the second editor column when solving problems.",
+    "main.contributes.configuration.properties.leetcode-problem-rating.enableSideMode.description": "Show the problem description beside the code editor when solving problems. Use editor.codePosition to choose the code side.",
     "main.contributes.configuration.properties.leetcode-problem-rating.nodePath.description": "The Node.js executable path. for example, C:\\Program Files\\nodejs\\node.exe",
     "main.contributes.configuration.properties.leetcode-problem-rating.colorizeProblems.description": "Add difficulty badge and colorize problems files in explorer tree.",
     "main.contributes.configuration.properties.leetcode-problem-rating.problems.sortStrategy.description": "Sorting strategy for problems list.",

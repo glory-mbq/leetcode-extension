@@ -1,3 +1,50 @@
+# LeetCode (glory-mbq fork)
+
+本 fork 基于 ccagml 的 LeetCode 插件，默认在点击 **Code Now** 后显示左侧题目、右侧代码，并在 VS Code 集成浏览器中打开题目底部的 **Discussion / Solution**。
+
+## 安装此版本
+
+1. 从 [GitHub Releases](https://github.com/glory-mbq/leetcode-extension/releases) 下载 `.vsix`。
+2. 在 VS Code 扩展面板的菜单中选择 **Install from VSIX...**。
+3. 禁用原版 `ccagml.vscode-leetcode-problem-rating`，再重新加载窗口。本 fork 保留原来的命令、视图和配置名称，两个版本不应同时启用。
+
+推荐的用户设置（`settings.json`）：
+
+```json
+{
+  "leetcode-problem-rating.showDescription": "In Webview",
+  "leetcode-problem-rating.enableSideMode": true,
+  "leetcode-problem-rating.editor.codePosition": "right",
+  "leetcode-problem-rating.problemLinks.openIn": "integratedBrowser",
+  "workbench.browser.newTabPlacement": "activeGroup"
+}
+```
+
+`editor.codePosition` 可设置为 `left`，题目、内置题解和提交结果会显示在代码的另一栏。关闭分栏模式或关闭 Webview 题干时，代码仍在第一栏打开。
+
+网页浏览沿用 VS Code 的浏览器放置及会话存储设置；首次访问力扣可能需要单独登录。旧版 VS Code 没有集成浏览器时会提示升级，并提供手动选择的外部浏览器入口。需要始终在外部浏览器打开时，将 `problemLinks.openIn` 设置为 `externalBrowser`。
+
+代码文件上方的 **Solution** 仍使用原插件的内置题解功能；题目底部的 **Solution** 打开完整网页。
+
+## 本地开发
+
+```powershell
+npm ci
+npm test
+npm run test:extension
+npm run watch
+```
+
+`test:extension` 使用本机安装的 VS Code，在独立的用户数据和扩展目录中检查编辑器分栏、焦点、题解/提交结果、链接消息与真实集成浏览器命令。可通过 `VSCODE_EXECUTABLE_PATH` 指定 VS Code 可执行文件。测试不登录力扣，也不提交题目。
+
+按 F5 选择 **Debug LeetCode Fork** 可启动开发窗口。打包命令：
+
+```powershell
+npx @vscode/vsce package -o leetcode-glory-mbq.vsix
+```
+
+以下保留上游项目说明。
+
 <p align="center">
   <a href="https://github.com/ccagml/leetcode-extension/actions/workflows/release.yml">
     <img src="https://img.shields.io/github/actions/workflow/status/ccagml/vscode-leetcode-problem-rating/release.yml?branch=release" alt="">

@@ -11,6 +11,7 @@ import { ViewColumn, Uri } from "vscode";
 import { BaseWebViewService } from "../service/BaseWebviewService";
 import { markdownService } from "../service/MarkdownService";
 import { IWebViewOption } from "../model/ConstDefind";
+import { getProblemColumns } from "../utils/EditorLayout";
 
 import * as path from "path";
 import { BABA, BABAMediator, BABAProxy, BabaStr, BaseCC } from "../BABA";
@@ -39,7 +40,7 @@ class SolutionService extends BaseWebViewService {
     if (BABA.getProxy(BabaStr.PreviewProxy).isSideMode()) {
       return {
         title: this.is_hints ? "Hints" : "Solution",
-        viewColumn: ViewColumn.Two,
+        viewColumn: getProblemColumns(true).content,
         preserveFocus: true,
       };
     } else {

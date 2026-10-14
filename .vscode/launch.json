@@ -3,6 +3,14 @@
     "version": "0.1.0",
     "configurations": [
         {
+            "name": "Debug LeetCode Fork",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": ["--extensionDevelopmentPath=${workspaceFolder}"],
+            "outFiles": ["${workspaceFolder}/out/src/**/*.js"]
+        },
+        {
             "name": "master",
             // "type": "extensionHost",
             "type": "extensionHost",

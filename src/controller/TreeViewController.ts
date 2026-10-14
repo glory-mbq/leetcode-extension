@@ -66,6 +66,7 @@ import * as fse from "fs-extra";
 import { groupDao } from "../dao/groupDao";
 import { fileMeta, ProblemMeta } from "../utils/problemUtils";
 import { BABA, BabaStr } from "../BABA";
+import { getProblemColumns } from "../utils/EditorLayout";
 
 // 视图控制器
 class TreeViewController implements Disposable {
@@ -722,7 +723,7 @@ class TreeViewController implements Disposable {
           vscode.window
             .showTextDocument(vscode.Uri.file(finalPath), {
               preview: false,
-              viewColumn: vscode.ViewColumn.One,
+              viewColumn: getProblemColumns(enableSideMode() && descriptionConfig.showInWebview).code,
             })
             .then(
               (editor) => {

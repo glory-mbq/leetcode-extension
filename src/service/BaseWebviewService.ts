@@ -7,7 +7,7 @@
  * Copyright (c) 2022 ccagml . All rights reserved.
  */
 
-import { commands, ConfigurationChangeEvent, Disposable, ViewColumn, WebviewPanel, window, workspace } from "vscode";
+import { ConfigurationChangeEvent, Disposable, WebviewPanel, window, workspace } from "vscode";
 import { markdownService } from "./MarkdownService";
 import { IWebViewOption } from "../model/ConstDefind";
 import { openSettingsEditor } from "../utils/ConfigUtils";
@@ -44,14 +44,8 @@ export abstract class BaseWebViewService implements Disposable {
       workspace.onDidChangeConfiguration(this.onDidChangeConfiguration, this, this.listeners);
     } else {
       this.panel.title = title;
-      if (viewColumn === ViewColumn.Two) {
-        // Make sure second group exists. See vscode#71608 issue
-        commands.executeCommand("workbench.action.focusSecondEditorGroup").then(() => {
-          this.panel!.reveal(viewColumn, preserveFocus);
-        });
-      } else {
-        this.panel.reveal(viewColumn, preserveFocus);
-      }
+      // reveal creates the requested group when needed and honors preserveFocus.
+      this.panel.reveal(viewColumn, preserveFocus);
     }
     this.panel.webview.html = this.getWebviewContent();
     this.showMarkdownConfigHint();

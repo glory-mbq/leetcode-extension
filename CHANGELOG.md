@@ -1,3 +1,12 @@
+# version 3.2.5 (glory-mbq fork)
+
+- Code Now 默认打开左侧题目、右侧代码，可通过 `editor.codePosition` 切回原布局。
+- 内置题解、提示和提交结果跟随题目栏，重新显示题目时保留代码焦点。
+- Discussion / Solution 可直接在 VS Code 集成浏览器打开，并保留外部浏览器选项。
+- 使用当前 `/solutions/` 题解地址，兼容不含 `/description/` 的题目链接。
+- 修复 fork 更换 publisher 后调试资源路径仍依赖原插件的问题。
+- 添加自动回归测试和独立 Extension Host 验证。
+
 # version 3.2.4
 
 - 更新 hot100 题目编号

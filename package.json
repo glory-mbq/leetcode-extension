@@ -1,10 +1,10 @@
 {
     "name": "vscode-leetcode-problem-rating",
-    "displayName": "LeetCode",
+    "displayName": "LeetCode (glory-mbq)",
     "description": "%main.description%",
-    "version": "3.2.4",
+    "version": "3.2.5",
     "author": "ccagml",
-    "publisher": "ccagml",
+    "publisher": "glory-mbq",
     "license": "MIT",
     "icon": "resources/LCPR.png",
     "engines": {
@@ -12,9 +12,9 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/ccagml/leetcode-extension"
+        "url": "https://github.com/glory-mbq/leetcode-extension"
     },
-    "homepage": "https://github.com/ccagml/leetcode-extension/README.md",
+    "homepage": "https://github.com/glory-mbq/leetcode-extension#readme",
     "categories": [
         "Other",
         "Snippets",
@@ -1115,6 +1115,20 @@
                         "scope": "application",
                         "description": "%main.contributes.configuration.properties.leetcode-problem-rating.enableSideMode.description%"
                     },
+                    "leetcode-problem-rating.editor.codePosition": {
+                        "type": "string",
+                        "enum": ["left", "right"],
+                        "default": "right",
+                        "scope": "application",
+                        "description": "%main.contributes.configuration.properties.leetcode-problem-rating.editor.codePosition.description%"
+                    },
+                    "leetcode-problem-rating.problemLinks.openIn": {
+                        "type": "string",
+                        "enum": ["integratedBrowser", "externalBrowser"],
+                        "default": "integratedBrowser",
+                        "scope": "application",
+                        "description": "%main.contributes.configuration.properties.leetcode-problem-rating.problemLinks.openIn.description%"
+                    },
                     "leetcode-problem-rating.nodePath": {
                         "type": "string",
                         "default": "node",
@@ -1214,6 +1228,8 @@
         "vscode:prepublish": "npm run compile",
         "compile": "tsc -p ./",
         "watch": "tsc -watch -p ./",
+        "test": "npm run compile && node --test test/*.test.js",
+        "test:extension": "npm run compile && node test/run-extension-host.js",
         "lint": "tslint --project tsconfig.json -e src/*.d.ts -t verbose"
     },
     "devDependencies": {

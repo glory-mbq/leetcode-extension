@@ -60,6 +60,7 @@ typings/
 # Output
 out
 *.vsix
+/artifacts/
 .vscode-test
 
 # Mac

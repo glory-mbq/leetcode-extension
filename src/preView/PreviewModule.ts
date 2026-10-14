@@ -8,8 +8,9 @@
  */
 
 import { commands, ViewColumn } from "vscode";
-import { Endpoint, IWebViewOption } from "../model/ConstDefind";
-import { getLeetCodeEndpoint } from "../utils/ConfigUtils";
+import { IWebViewOption } from "../model/ConstDefind";
+import { getProblemColumns } from "../utils/EditorLayout";
+import { getProblemPageUrl, openProblemPage, ProblemPage } from "../service/ProblemPageService";
 import { BaseWebViewService } from "../service/BaseWebviewService";
 import { markdownService } from "../service/MarkdownService";
 import { BABAMediator, BABAProxy, BabaStr, BaseCC } from "../BABA";
@@ -46,7 +47,7 @@ class PreviewService extends BaseWebViewService {
     } else {
       return {
         title: "Description",
-        viewColumn: ViewColumn.Two,
+        viewColumn: getProblemColumns(this.sideMode).content,
         preserveFocus: true,
       };
     }
@@ -102,9 +103,7 @@ class PreviewService extends BaseWebViewService {
       markdownService.render(this.description.companies.map((c: string) => `\`${c}\``).join(" | ")),
       `</details>`,
     ].join("\n");
-    const links: string = markdownService.render(
-      `[Discussion](${this.getDiscussionLink(url)}) | [Solution](${this.getSolutionLink(url)})`
-    );
+    const links: string = `<p><a href="#" data-lc-page="discussion">Discussion</a> | <a href="#" data-lc-page="solution">Solution</a></p>`;
     return `
             <!DOCTYPE html>
             <html>
@@ -128,6 +127,15 @@ class PreviewService extends BaseWebViewService {
                 <script>
                     const vscode = acquireVsCodeApi();
                     ${!this.sideMode ? button.script : ""}
+                    document.querySelectorAll('[data-lc-page]').forEach(link => {
+                        link.addEventListener('click', event => {
+                            event.preventDefault();
+                            vscode.postMessage({
+                                command: 'OpenProblemPage',
+                                kind: link.getAttribute('data-lc-page')
+                            });
+                        });
+                    });
                 </script>
             </body>
             </html>
@@ -143,6 +151,13 @@ class PreviewService extends BaseWebViewService {
     switch (message.command) {
       case "ShowProblem": {
         await commands.executeCommand("lcpr.showProblem", this.node);
+        break;
+      }
+      case "OpenProblemPage": {
+        if (message.kind === "discussion" || message.kind === "solution") {
+          const url = getProblemPageUrl(this.description.url, message.kind);
+          await openProblemPage(url, getProblemColumns(this.sideMode).content);
+        }
         break;
       }
     }
@@ -166,20 +181,6 @@ class PreviewService extends BaseWebViewService {
     };
   }
 
-  private getDiscussionLink(url: string): string {
-    const endPoint: string = getLeetCodeEndpoint();
-    if (endPoint === Endpoint.LeetCodeCN) {
-      return url.replace("/description/", "/comments/");
-    } else if (endPoint === Endpoint.LeetCode) {
-      return url.replace("/description/", "/discuss/?currentPage=1&orderBy=most_votes&query=");
-    }
-
-    return "https://leetcode.com";
-  }
-
-  private getSolutionLink(url: string): string {
-    return url.replace("/description/", "/solution/");
-  }
 }
 
 interface IDescription {
@@ -199,6 +200,7 @@ interface IDescription {
 
 interface IWebViewMessage {
   command: string;
+  kind?: ProblemPage;
 }
 
 export const previewService: PreviewService = new PreviewService();
